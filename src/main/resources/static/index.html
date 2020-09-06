@@ -12,18 +12,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-    <style>
-        a.dis {
-    pointer-events: none; /* делаем ссылку некликабельной */
-    cursor: default;  /* устанавливаем курсор в виде стрелки */
-    color: #999; /* цвет текста для нективной ссылки */
-    }
-
-    </style>
 </head>
 <body>
+<div ng-controller="loginController">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+            <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+            <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+            <button ng-click="exit()">
+                Выход
+            </button>
+        </div>
+    </nav>
 
-<div class="container">
+</div>
+
+<div class="container" >
     <ng-view></ng-view>
 </div>
 </body>
