@@ -8,8 +8,8 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -66,7 +66,7 @@ public class Task {
     @JoinTable(name = "users_tasks",
             joinColumns = @JoinColumn(name = "task_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Collection<User> users;
+    private Set<User> users;
 
     @OneToMany(mappedBy = "task")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)

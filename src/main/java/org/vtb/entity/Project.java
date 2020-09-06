@@ -5,8 +5,8 @@ import lombok.Data;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -27,7 +27,7 @@ public class Project {
     @JoinTable(name = "users_projects",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Collection<User> users;
+    private Set<User> users;
 
     @OneToMany(mappedBy = "project")
     @JsonIgnore
