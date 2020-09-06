@@ -15,5 +15,5 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQL94Dialect
         temp:
           use_jdbc_metadata_defaults: false
-jwt:
-  secret: task_manager
+#jwt:
+#  secret: task_manager
