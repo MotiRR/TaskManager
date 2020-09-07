@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="registerController">
+<head>
+    <title>Registration Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="logic.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h1>Регистрация</h1>
+<form novalidate ng-submit="register()">
+    <div class="card">
+        <div class="card-body">
+            <p style="color: red">{{result}}</p>
+            <div>
+                <label for="login">Логин</label>
+                <input type="text" ng-model="registerUser.login" id="login">
+            </div>
+            <div>
+                <label for="password">Пароль</label>
+                <input type="password" ng-model="registerUser.password" id="password">
+            </div>
+            <div>
+                <label for="lastName">Фамилия</label>
+                <input type="text" ng-model="registerUser.lastName" id="lastName">
+            </div>
+            <div>
+                <label for="name">Имя</label>
+                <input type="text" ng-model="registerUser.name" id="name">
+            </div>
+            <div>
+                <label for="secondName">Отчество</label>
+                <input type="text" ng-model="registerUser.secondName" id="secondName">
+            </div>
+            <div>
+                <label for="phone">Телефон</label>
+                <input type="text" placeholder="8-916-001-02-03" ng-model="registerUser.phone" id="phone">
+            </div>
+            <div>
+                <label for="email">email</label>
+                <input type="text" placeholder="ivanov.ivan@ya.ru" ng-model="registerUser.email" id="email">
+            </div>
+            <div>
+                <button type="submit">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

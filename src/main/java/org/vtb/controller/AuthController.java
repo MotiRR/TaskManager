@@ -24,19 +24,20 @@ public class AuthController {
     private JwtProvider jwtProvider;
 
     @PostMapping("/register")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String registerUser(@RequestBody @Valid RegistrationRequest registrationRequest) {
-        User u = new User();
-        u.setPassword(registrationRequest.getPassword());
-        u.setLogin(registrationRequest.getLogin());
-        userService.saveUser(u);
-        return "OK";
+    public AuthResponse registerUser(@RequestBody @Valid RegistrationRequest registrationRequest) {
+        User user = new User();
+        user.setPassword(registrationRequest.getPassword());
+        user.setLogin(registrationRequest.getLogin());
+        userService.saveUser(user);
+        String token = jwtProvider.generateToken(user.getLogin());
+        return new AuthResponse("200", token);
     }
 
     @PostMapping("/auth")
     public AuthResponse auth(@RequestBody AuthRequest request) {
         User userEntity = userService.findByLoginAndPassword(request.getLogin(), request.getPassword());
+        if(userEntity == null) return new AuthResponse("not user", "");
         String token = jwtProvider.generateToken(userEntity.getLogin());
-        return new AuthResponse(token);
+        return new AuthResponse("200", token);
     }
 }
