@@ -1,6 +1,8 @@
 DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE users (id bigserial, login varchar(30) not null, password varchar(100) not null, email varchar(50) unique,
-  primary key (id)
+  primary key (id),
+  created_at timestamp default current_timestamp,
+  updated_at timestamp default current_timestamp
 );
 
 DROP TABLE IF EXISTS roles CASCADE;
@@ -34,7 +36,9 @@ CREATE TABLE projects
     title      varchar(127) not null,
     leader_id  bigint      not null,
     primary key (id),
-    foreign key (leader_id) references users (id)
+    foreign key (leader_id) references users (id),
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp
 );
 
 DROP TABLE IF EXISTS users_projects CASCADE;
@@ -60,7 +64,10 @@ create table tasks
     deadline    date        not null,
     primary key (id),
     foreign key (leader_id) references users (id),
-    foreign key (project_id) references projects (id)
+    foreign key (project_id) references projects (id),
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp
+
 );
 
 DROP TABLE IF EXISTS users_tasks CASCADE;
@@ -82,7 +89,9 @@ CREATE TABLE comments
     task_id    bigint       not null,
     primary key (id),
     foreign key (user_id) references users (id),
-    foreign key (task_id) references tasks (id)
+    foreign key (task_id) references tasks (id),
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp
 );
 
 INSERT INTO projects(title, leader_id)
