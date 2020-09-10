@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="app" ng-controller="taskController">
+<html ng-app="app" ng-controller="projectsController">
 <head>
     <title>Registration Page</title>
     <meta charset="utf-8">
@@ -11,8 +11,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h2>Карточка по задаче</h2>
-<p>{{TaskId}}</p>
-<p>{{TaskTitle}}</p>
+<h2>Список проектов:</h2>
+<table class="table table-hover" cellpadding="0" cellspacing="0">
+    <tr>
+        <td>id</td>
+        <td>Название</td>
+    </tr>
+    <tbody ng-repeat="p in ProjectList">
+    <tr ng-click="select(p.id)">
+        <td>{{p.id}}</td>
+        <td>{{p.title}}</td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
