@@ -1,9 +1,12 @@
 DROP TABLE IF EXISTS users CASCADE;
-CREATE TABLE users (id bigserial, login varchar(30) not null, password varchar(100) not null, email varchar(50) unique,
+CREATE TABLE users (id bigserial, login varchar(30) not null, password varchar(100) not null, last_name varchar(50),
+name varchar(50), second_name varchar(50), phone varchar(50),
+email varchar(50) unique,
   primary key (id),
   created_at timestamp default current_timestamp,
   updated_at timestamp default current_timestamp
 );
+
 
 DROP TABLE IF EXISTS roles CASCADE;
 CREATE TABLE roles (id serial, name varchar(25) not null,

@@ -11,18 +11,23 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h2>Список проектов:</h2>
-<table class="table table-hover" cellpadding="0" cellspacing="0">
-    <tr>
-        <td>id</td>
-        <td>Название</td>
-    </tr>
-    <tbody ng-repeat="p in ProjectList">
-    <tr ng-click="select(p.id)">
-        <td>{{p.id}}</td>
-        <td>{{p.title}}</td>
-    </tr>
-    </tbody>
-</table>
+<div>
+    <h2>Список проектов:</h2>
+    <div id="lists">
+        <button class="btn btn-dark" ng-click="create()">Создать</button>
+        <table class="table table-hover" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>id</td>
+                <td>Название</td>
+            </tr>
+            <tbody ng-repeat="p in ProjectList">
+            <tr ng-click="select(p.id)">
+                <td>{{p.id}}</td>
+                <td>{{p.title}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>
