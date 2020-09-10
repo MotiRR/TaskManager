@@ -4,11 +4,16 @@ ul {
     padding: 0;
     overflow: hidden;
     background-color: #333;
-    width: 50%;
+    width: 60%;
 }
 
 li {
     float: left;
+}
+
+.slow_window {
+    height: 200px;
+    overflow: scroll;
 }
 
 li a {
