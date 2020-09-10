@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html ng-app="app">
+<html ng-app="app" ng-controller="loginController">
 
 <head>
     <meta charset="utf-8">
@@ -12,18 +12,24 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
-    <style>
-        a.dis {
-    pointer-events: none; /* делаем ссылку некликабельной */
-    cursor: default;  /* устанавливаем курсор в виде стрелки */
-    color: #999; /* цвет текста для нективной ссылки */
-    }
-
-    </style>
+    <link rel="stylesheet" href="css/style.css">
+    
 </head>
-<body>
+<body >
+<div>
+    <ul>
+        <li><a href="#!">Главная</a></li>
+        <li><a href="#!/projects">Проекты</a></li>
+        <li><a href="#!/tasks">Задачи</a></li>
+        <li><a href="#about">О Нас</a></li>
+        <div style="float: right;">
+            <li id="login"><a href="#!/login">Войти</a></li>
+            <li id="logout"><a href="#" ng-click="exit()">Выйти</a></li>
+        </div>
+    </ul>
+</div>
 
-<div class="container">
+<div class="container" >
     <ng-view></ng-view>
 </div>
 </body>

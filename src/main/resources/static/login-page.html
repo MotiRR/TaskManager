@@ -6,6 +6,7 @@
     <title>Login Page</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="logic.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
@@ -13,8 +14,27 @@
 </head>
 
 <body>
-<h1>
-    Hi rar
-</h1>
+
+<div style="width: 400px; margin: auto;">
+<form class="form-signin" novalidate ng-submit="auth()">
+
+    <p style="color: red">{{result}}</p>
+    <div class="col-auto">
+        <label for="login">Логин</label>
+        <input type="text" class="form-control" ng-model="authUser.login" id="login" required/>
+    </div>
+    <div class="col-auto">
+        <label for="password">Пароль</label>
+        <input type="password" class="form-control" ng-model="authUser.password" id="password" required/>
+    </div>
+    <div style="text-align:center">
+        <a href="#!/register">Регистрация</a>
+        <br><br>
+    </div>
+    <div>
+        <button class="btn btn-dark" type="submit">Войти</button>
+    </div>
+</form>
+</div>
 </body>
 </html>
