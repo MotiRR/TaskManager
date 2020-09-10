@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.vtb.entity.Project;
-import org.vtb.entity.Task;
 import org.vtb.service.ProjectService;
 
 import java.util.List;
@@ -26,9 +25,23 @@ public class ProjectController {
     }
 
     @GetMapping
-    public List<Project> getAll() {
-        return service.findAll();
+    public List<Project> getAll(@RequestParam(value = "page", defaultValue = "1") Integer page) {
+        return service.findAll(page - 1, 5).getContent();
     }
+
+    @PutMapping(consumes = "application/json", produces = "application/json")
+    public void modifyProject(@RequestBody Project project) {
+        if (!service.existsById(project.getId())) {
+//TODO exception class
+            throw new RuntimeException(String.format("Проект с id= %d не найден", project.getId()));
+        }
+        service.saveOrUpdate(project);
+    }
+//
+//    @GetMapping
+//    public List<Project> getAll() {
+//        return service.findAll();
+//    }
 
 
     // не смотреть эти методы

@@ -99,11 +99,32 @@ CREATE TABLE comments
 
 INSERT INTO projects(title, leader_id)
 VALUES ('Project 1', 1),
+       ('Project 2', 2),
+       ('Project 2', 2),
+       ('Project 2', 2),
+       ('Project 2', 2),
+       ('Project 2', 2),
+       ('Project 2', 2),
+       ('Project 2', 2),
+       ('Project 2', 2),
+       ('Project 2', 2),
        ('Project 2', 2);
 
 INSERT INTO tasks (title, description, status, priority, leader_id, project_id, deadline)
 VALUES ('Task 1', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
        ('Task 2', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+       ('Task 3', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+       ('Task 4', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+       ('Task 5', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+       ('Task 6', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+       ('Task 7', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+          ('Task 2', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+       ('Task 3', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+       ('Task 4', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+       ('Task 5', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+       ('Task 6', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+       ('Task 7', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+            ('Task 2', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
        ('Task 3', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
        ('Task 4', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
        ('Task 5', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
