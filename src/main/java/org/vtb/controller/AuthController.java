@@ -27,11 +27,9 @@ public class AuthController {
 
     @PostMapping("/register")
     public AuthResponse registerUser(@RequestBody @Valid RegistrationRequest registrationRequest) {
-        User user = new User();
-        user.setPassword(registrationRequest.getPassword());
-        user.setLogin(registrationRequest.getLogin());
+        User user;
         try {
-            userService.saveUser(user);
+            user = userService.createUser(registrationRequest);
         } catch (RegistrationException ex) {
             return new AuthResponse(401, "", List.of(ex.getMessage()));
         }
@@ -41,9 +39,9 @@ public class AuthController {
 
     @PostMapping("/auth")
     public AuthResponse auth(@RequestBody AuthRequest request) {
-        User userEntity = userService.findByLoginAndPassword(request.getLogin(), request.getPassword());
-        if(userEntity == null) return new AuthResponse(401, "", List.of("Пользователь не найден"));
-        String token = jwtProvider.generateToken(userEntity.getLogin());
+        User user = userService.findByLoginAndPassword(request.getLogin(), request.getPassword());
+        if(user == null) return new AuthResponse(401, "", List.of("Пользователь не найден"));
+        String token = jwtProvider.generateToken(user.getLogin());
         return new AuthResponse(200, token, List.of("Авторизован"));
     }
 }
