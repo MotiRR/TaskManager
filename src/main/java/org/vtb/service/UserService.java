@@ -64,4 +64,12 @@ public class UserService {
     public List<User> findAll() {
         return userEntityRepository.findAll();
     }
+
+    public List<User> findAllWithRoles(List<String> roles) {
+        return userEntityRepository.findAllWithRoles(roles);
+    }
+
+    public User saveOrUpdate(User user) {
+        return userEntityRepository.save(user);
+    }
 }

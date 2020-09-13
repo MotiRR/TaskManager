@@ -30,7 +30,10 @@ INSERT INTO users (login, password, email) values
 ('bob', '$2y$12$B4a6J3eGOjxcRvBxq5Pme.Dbla0zRqsw27rBMvn4Fe8ZMeoSGfgrm', 'admin2@email.com'),
 ('james', '$2y$12$B4a6J3eGOjxcRvBxq5Pme.Dbla0zRqsw27rBMvn4Fe8ZMeoSGfgrm', 'admin3@email.com');
 
-INSERT INTO users_roles (user_id, role_id) values (1, 2);
+INSERT INTO users_roles (user_id, role_id) values
+(2, 1),
+(3, 1),
+(1, 2);
 
 DROP TABLE IF EXISTS projects CASCADE;
 CREATE TABLE projects
@@ -131,3 +134,9 @@ VALUES ('Task 1', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
        ('Task 6', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
        ('Task 7', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
        ('Task 8', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07');
+
+DROP TABLE IF EXISTS files CASCADE;
+CREATE TABLE files (id varchar(255), name varchar(255) not null, task_id bigint, type varchar(255), data bigint,
+  primary key (id),
+  foreign key (task_id) references tasks (id)
+);
