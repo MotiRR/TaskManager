@@ -1,12 +1,12 @@
 package org.vtb.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.vtb.entity.enums.Priority;
+import org.vtb.entity.enums.Status;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -36,27 +36,9 @@ public class Task {
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @AllArgsConstructor
-    @Getter
-    public enum Priority {
-        PLANNING("В планах"), VERY_LOW("Очень низкий"), LOW("Низкий"),
-        MEDIUM("Средний"), HIGH("Высокий"), VERY_HIGH("Очень высокий");
-
-        private String rus;
-    }
-
     @Column(name = "priority")
     @Enumerated(EnumType.STRING)
     private Priority priority;
-
-    @AllArgsConstructor
-    @Getter
-    public enum Status {
-        CREATED("Создана"), INPROGRESS("В работе"), CHECKING("Передана на проверку"),
-        RETURNED("Возвращена на доработку"), COMPLETED("Завершена"), CANCELED("Отменена");
-
-        private String rus;
-    }
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
