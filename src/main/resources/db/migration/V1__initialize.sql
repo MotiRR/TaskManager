@@ -1,7 +1,12 @@
 DROP TABLE IF EXISTS users CASCADE;
-CREATE TABLE users (id bigserial, login varchar(30) not null, password varchar(100) not null, email varchar(50) unique,
-  primary key (id)
+CREATE TABLE users (id bigserial, login varchar(30) not null, password varchar(100) not null, last_name varchar(50),
+name varchar(50), second_name varchar(50), phone varchar(50),
+email varchar(50) unique,
+  primary key (id),
+  created_at timestamp default current_timestamp,
+  updated_at timestamp default current_timestamp
 );
+
 
 DROP TABLE IF EXISTS roles CASCADE;
 CREATE TABLE roles (id serial, name varchar(25) not null,
@@ -34,7 +39,9 @@ CREATE TABLE projects
     title      varchar(127) not null,
     leader_id  bigint      not null,
     primary key (id),
-    foreign key (leader_id) references users (id)
+    foreign key (leader_id) references users (id),
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp
 );
 
 DROP TABLE IF EXISTS users_projects CASCADE;
@@ -60,7 +67,10 @@ create table tasks
     deadline    date        not null,
     primary key (id),
     foreign key (leader_id) references users (id),
-    foreign key (project_id) references projects (id)
+    foreign key (project_id) references projects (id),
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp
+
 );
 
 DROP TABLE IF EXISTS users_tasks CASCADE;
@@ -82,16 +92,39 @@ CREATE TABLE comments
     task_id    bigint       not null,
     primary key (id),
     foreign key (user_id) references users (id),
-    foreign key (task_id) references tasks (id)
+    foreign key (task_id) references tasks (id),
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp
 );
 
 INSERT INTO projects(title, leader_id)
 VALUES ('Project 1', 1),
+       ('Project 2', 2),
+       ('Project 2', 2),
+       ('Project 2', 2),
+       ('Project 2', 2),
+       ('Project 2', 2),
+       ('Project 2', 2),
+       ('Project 2', 2),
+       ('Project 2', 2),
+       ('Project 2', 2),
        ('Project 2', 2);
 
 INSERT INTO tasks (title, description, status, priority, leader_id, project_id, deadline)
 VALUES ('Task 1', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
        ('Task 2', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+       ('Task 3', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+       ('Task 4', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+       ('Task 5', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+       ('Task 6', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+       ('Task 7', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+          ('Task 2', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+       ('Task 3', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+       ('Task 4', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+       ('Task 5', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+       ('Task 6', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+       ('Task 7', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+            ('Task 2', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
        ('Task 3', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
        ('Task 4', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
        ('Task 5', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),

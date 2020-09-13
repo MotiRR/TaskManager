@@ -11,16 +11,57 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>Проекты:</h1>
-<table class="table table-hover" cellpadding="0" cellspacing="0">
-    <tr>
-        <td>Название</td>
-    </tr>
-    <tbody>
-    <tr ng-repeat="p in ProjectList">
-        <td>{{p.title}}</td>
-    </tr>
-    </tbody>
-</table>
+<h2>Проект</h2>
+<div>
+
+    <table>
+        <tbody>
+        <tr>
+            <td>Название</td>
+            <td><input type="text" ng-model="title"></td>
+        </tr>
+        <tr>
+            <td>Руководитель</td>
+            <td><select>
+                <option ng-repeat="u in UserList" value="u.login">{{u.login}}</option>
+            </select></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>Задачи</h3>
+    <div class="slow_window">
+        <table class="table table-hover" cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr ng-repeat="t in TaskList">
+                <td><input type="checkbox" name="task" value="t.id" ng-click="select(t)"></td><td>{{t.title}}</td><td>{{t.description}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3>Исполнители</h3>
+    <div class="slow_window">
+        <table class="table table-hover" cellpadding="0" cellspacing="0">
+            <thead>
+            <td></td>
+            <td>Логин</td>
+            <td>Имя</td>
+            <td>Фамилия</td>
+            <td>Отчетсво</td>
+            </thead>
+            <tbody>
+            <tr ng-repeat="u in UserList">
+                <td><input type="checkbox" name="user" value="u.id" ng-click="selectUser(u)"></td>
+                <td>{{u.login}}</td>
+                <td>{{u.name}}</td>
+                <td>{{u.secondName}}</td>
+                <td>{{u.lastName}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <button class="btn btn-dark" ng-click="save()">Сохранить</button>
+</div>
 </body>
 </html>

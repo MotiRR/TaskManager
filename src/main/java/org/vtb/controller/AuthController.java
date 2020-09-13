@@ -11,9 +11,11 @@ import org.vtb.controller.classes.AuthRequest;
 import org.vtb.controller.classes.AuthResponse;
 import org.vtb.controller.classes.RegistrationRequest;
 import org.vtb.entity.User;
+import org.vtb.exception.RegistrationException;
 import org.vtb.service.UserService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -25,19 +27,21 @@ public class AuthController {
 
     @PostMapping("/register")
     public AuthResponse registerUser(@RequestBody @Valid RegistrationRequest registrationRequest) {
-        User user = new User();
-        user.setPassword(registrationRequest.getPassword());
-        user.setLogin(registrationRequest.getLogin());
-        userService.saveUser(user);
+        User user;
+        try {
+            user = userService.createUser(registrationRequest);
+        } catch (RegistrationException ex) {
+            return new AuthResponse(401, "", List.of(ex.getMessage()));
+        }
         String token = jwtProvider.generateToken(user.getLogin());
-        return new AuthResponse("200", token);
+        return new AuthResponse(201, token, List.of("Зарегестрирован"));
     }
 
     @PostMapping("/auth")
     public AuthResponse auth(@RequestBody AuthRequest request) {
-        User userEntity = userService.findByLoginAndPassword(request.getLogin(), request.getPassword());
-        if(userEntity == null) return new AuthResponse("not user", "");
-        String token = jwtProvider.generateToken(userEntity.getLogin());
-        return new AuthResponse("200", token);
+        User user = userService.findByLoginAndPassword(request.getLogin(), request.getPassword());
+        if(user == null) return new AuthResponse(401, "", List.of("Пользователь не найден"));
+        String token = jwtProvider.generateToken(user.getLogin());
+        return new AuthResponse(200, token, List.of("Авторизован"));
     }
 }
