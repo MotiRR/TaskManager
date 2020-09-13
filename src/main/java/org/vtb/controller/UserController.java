@@ -29,9 +29,14 @@ public class UserController {
         return userService.findById(id);
     }
     
-    @GetMapping
+    /*@GetMapping
     public List<User> getAll() {
         return userService.findAll();
+    }*/
+
+    @GetMapping
+    public List<User> getAll() {
+        return userService.findAllWithRoles(List.of("ROLE_USER"));
     }
 
 }

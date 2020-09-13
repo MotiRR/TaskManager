@@ -64,4 +64,8 @@ public class UserService {
     public List<User> findAll() {
         return userEntityRepository.findAll();
     }
+
+    public List<User> findAllWithRoles(List<String> roles) {
+        return userEntityRepository.findAllWithRoles(roles);
+    }
 }
