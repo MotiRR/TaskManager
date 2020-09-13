@@ -1,32 +1,27 @@
 package org.vtb;
 
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.vtb.entity.Project;
+import org.vtb.repository.ProjectRepository;
 import org.vtb.service.ProjectService;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
-import static org.hibernate.cfg.AvailableSettings.URL;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
+@AutoConfigureMockMvc(addFilters = false)
 public class ProjectControllerTest {
 
-    @Autowired
-    private static final String URl = "/api/v1/projects";
-
-    @Autowired
-    private MockMvc mvc;
+    @MockBean
+    private ProjectRepository projectRepository;
 
     @Autowired
     private ProjectService projectService;
@@ -34,32 +29,29 @@ public class ProjectControllerTest {
     private Project project;
 
     @BeforeEach
-    public void unit() {
-        project = new Project(
-                1L,
-                "Project 1"
-        );
+    public void init() {
+        project = new Project();
+        project.setId(1L);
+        project.setTitle("Project");
     }
 
     @Test
-    public void getAllProjectsTest() throws Exception {
-        List<Project> projectList = new ArrayList<>();
-        projectList.add(project);
-        given(this.projectService.findAll())
-                .willReturn(projectList);
-        this.mvc.perform(get(URL)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(1L));
+    public void findById() throws Exception {
+        given(this.projectRepository.findById(any()))
+                .willReturn(Optional.of(project));
+        Project project = projectService.findById(1L);
+        assertEquals(1, project.getId());
     }
 
     @Test
-    public void getProjectByIdTest() throws Exception {
-        given(this.projectService.findById(1L))
-                .willReturn(project);
-        this.mvc.perform(get(URL + "{id}", 1L)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1L));
+    public void saveOrUpdate() throws Exception {
+        Project project2 = new Project();
+        project2.setId(1L);
+        project2.setTitle("Project1");
+
+        given(this.projectRepository.save(any()))
+                .willReturn(project2);
+        project = projectService.saveOrUpdate(project2);
+        assertEquals("Project1", project.getTitle());
     }
 }

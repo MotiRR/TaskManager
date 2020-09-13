@@ -1,66 +1,61 @@
 package org.vtb;
 
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.vtb.entity.Task;
+import org.vtb.repository.TaskRepository;
 import org.vtb.service.TaskService;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
-import static org.hibernate.cfg.AvailableSettings.URL;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
+@AutoConfigureMockMvc(addFilters = false)
 public class TaskControllerTest {
 
-    @Autowired
-    private static final String URl = "/api/v1/tasks";
-
-    @Autowired
-    private MockMvc mvc;
+    @MockBean
+    private TaskRepository taskRepository;
 
     @Autowired
     private TaskService taskService;
 
     private Task task;
 
+    public TaskControllerTest() {
+    }
+
     @BeforeEach
-    public void unit() {
-        task = new Task(
-                1L,
-                "Задание 1",
-                "Выполнить тест"
-        );
+    public void init() {
+        task = new Task();
+        task.setId(1L);
+        task.setTitle("Task");
     }
 
     @Test
-    public void getAllTasksTest() throws Exception {
-        List<Task> tasksList = new ArrayList<>();
-        tasksList.add(task);
-        given(this.taskService.findAll())
-                .willReturn(tasksList);
-        this.mvc.perform(get(URL)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(1L));
+    public void userFindById() throws Exception {
+        given(this.taskRepository.findById(any()))
+                .willReturn(Optional.of(task));
+        Task task = taskService.findById(1L);
+        assertEquals(1, task.getId());
+
     }
 
     @Test
-    public void getTaskByIdTest() throws Exception {
-        given(this.taskService.findById(1L))
-                .willReturn(task);
-        this.mvc.perform(get(URL + "{id}", 1L)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1L));
+    public void saveOrUpdate() throws Exception {
+        Task task2 = new Task();
+        task2.setId(1L);
+        task2.setTitle("Task2");
+
+        given(this.taskRepository.save(any()))
+                .willReturn(task2);
+        task = taskService.saveOrUpdate(task2);
+        assertEquals("Task2",task.getTitle());
     }
 }
