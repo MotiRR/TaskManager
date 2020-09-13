@@ -11,8 +11,60 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h2>Карточка по задаче</h2>
-<p>{{TaskId}}</p>
-<p>{{TaskTitle}}</p>
+<h2>Задача</h2>
+<div>
+    <table>
+        <tbody>
+        <tr>
+            <td>Title</td>
+            <td><input type="text" ng-model="title"></td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td><input type="text" ng-model="description"></td>
+        </tr>
+        <tr>
+            <td>DeadLine</td>
+            <td><input type="date" ng-model="deadLine"></td>
+        </tr>
+        <tr>
+            <td>LeaderId</td>
+            <td><input type="text" ng-model="leaderId"></td>
+        </tr>
+        <tr>
+            <td>Priority</td>
+            <td><input type="text" ng-model="priority"></td>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td><input type="text" ng-model="status"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--<tr><td>Status</td><td>{{status}}</td></tr>
+    <tr><td>CreatedAt</td><td>{{createdAt}}</td></tr>
+    <tr><td>UpdatedAt</td><td>{{updatedAt}}</td></tr>
+    <tr><td>Project</td><td>{{project}}</td></tr>-->
+
+    <h3>Проект</h3>
+    <div class="slow_window">
+        <table class="table table-hover" cellpadding="0" cellspacing="0">
+            <tbody>
+            <tr ng-repeat="p in projectList">
+                <td><input type="radio" name="project" value="p.id" ng-click="select(p)"></td><td>{{p.title}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <input type="file" id="file" name="file" multiple
+           onchange="angular.element(this).scope().getFileDetails(this)" />
+
+    <!--<input type="button" ng-click="uploadFiles()" value="Upload" />
+
+    <p><progress id="pro" value="0"></progress></p>-->
+
+    <button class="btn btn-dark" ng-click="save()">Сохранить</button>
+</div>
 </body>
 </html>
