@@ -1,37 +1,35 @@
 package org.vtb.entity.dto;
 
-import lombok.Data;
-import org.vtb.entity.Project;
-import org.vtb.entity.User;
 import org.vtb.entity.enums.Priority;
 import org.vtb.entity.enums.Status;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
-@Data
-public class TaskDto {
+public interface TaskDto {
 
-    private Long id;
+    Long getId();
 
-    private String title;
+    String getTitle();
 
-    private String leaderLogin;
+    String getLeaderLogin();
 
-    private String description;
+    String getDescription();
 
-    private String project;
+    String getProject();
 
-    private Priority priority;
+    Priority getPriority();
 
-    private Status status;
+    Status getStatus();
 
-    private LocalDate deadLine;
+    LocalDate getDeadLine();
 
-    private Set<User> users;
+    Long getUser();
 
-    private List<String> filesUrl;
+    Long getFile();
+
+    List<Long> getUsers();//Set<User> users;
+
+    List<Long> getFiles(); //List<Integer> files;
 }
 

@@ -353,6 +353,7 @@ $http.get(contextPath + '/api/v1/files',
 
 });
 
+var projectTask;
 app.controller('taskController', function ($scope, $location, $window, $http) {
 
     var taskId = localStorage.getItem("taskId");
@@ -380,20 +381,28 @@ app.controller('taskController', function ($scope, $location, $window, $http) {
         });
     };
 
+    $scope.select = function(p) {
+        projectTask = p;
+    };
+
     $scope.save=function() {
         if(is_edit_task == 0) {
+        console.log($scope.project);
+        config = fill_config();
+        fill_task(config, $scope);
+        config.project = projectTask;
             $http.post(contextPath + '/api/v1/tasks',
-                       $scope.project, {
+                       config, {
                            headers: {'Authorization': 'Bearer '+localStorage.getItem("token")}
                        })
                 .then(function (response) {
-                    console.log(response.data);
-                    /*if(response.data.status !== 200)
-                         $scope.result = response.data.messages[0];
+                    var y = response.data;
+                    if(response.status !== 201)
+                         alert(response.data.message);
                     else {
-                          localStorage.setItem("token", response.data.token);
-                          $window.location.href = contextPath + '#!/projects';
-                     }*/
+                         alert(response.data.message);
+                         $window.location.href = contextPath + '#!/tasks';
+                     }
                 });
         } else {
             var config_task = angular.fromJson(localStorage.getItem("edit_task"));
@@ -435,6 +444,23 @@ fill_task = function (rec, don) {
     rec.status = don.status;
     rec.project = don.project;
 };
+
+fill_config = function() {
+    return {
+            'id': null,
+            'title': null,
+            'leaderId': null,
+            'description': null,
+            'project': null,
+            'priority': null,
+            'status': null,
+            'deadLine': null,
+            'users': null,
+            'comments': null,
+            'createdAt': null,
+            'updatedAt': null
+    }
+}
 
 uploadFiles = function (files, taskId) {
 
