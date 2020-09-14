@@ -15,6 +15,7 @@ public class TaskFilter {
     public TaskFilter(MultiValueMap<String, String> params) {
         spec = Specification.where(null);
         if (params.containsKey("project")) {
+
             spec = spec.and(TaskSpecifications.projectEqual(Long.parseLong(params.getFirst("project"))));
         }
     }
