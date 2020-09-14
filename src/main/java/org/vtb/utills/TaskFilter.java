@@ -20,6 +20,7 @@ public class TaskFilter {
             System.out.println(params.getFirst("is_archived"));
         }
         if (params.containsKey("project")) {
+
             spec = spec.and(TaskSpecifications.projectEqual(Long.parseLong(params.getFirst("project"))));
         }
     }
