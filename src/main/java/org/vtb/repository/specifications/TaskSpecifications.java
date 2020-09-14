@@ -7,4 +7,10 @@ public class TaskSpecifications {
     public static Specification<Task> projectEqual(Long projectId) {
         return (Specification<Task>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("project"), projectId);
     }
+
+    public static Specification<Task> isArchivedEqual(Boolean isArchived) {
+        return (Specification<Task>) (root, criteriaQuery, criteriaBuilder)
+                -> criteriaBuilder.equal(root.get("isArchived"), isArchived);
+    }
+
 }
