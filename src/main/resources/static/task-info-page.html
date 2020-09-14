@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="taskInfoController">
+<head>
+    <title>Registration Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="logic.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js"></script>
+</head>
+<body>
+<h2>Карточка по задаче</h2>
+<div>
+    <table class="table table-hover" cellpadding="0" cellspacing="0">
+        <tbody>
+        <!--<tr><td>Id:</td><td>{{id}}</td></tr>
+        <tr><td>CreatedAt</td><td>{{createdAt}}</td></tr>
+        <tr><td>UpdatedAt</td><td>{{updatedAt}}</td></tr>-->
+
+        <tr><td>Title:</td><td>{{title}}</td></tr>
+        <tr><td>Description</td><td>{{description}}</td></tr>
+        <tr><td>DeadLine</td><td>{{deadLine}}</td></tr>
+        <tr><td>LeaderId</td><td>{{leaderId}}</td></tr>
+        <tr><td>Priority</td><td>{{priority}}</td></tr>
+        <tr><td>Status</td><td>{{status}}</td></tr>
+        <tr><td>Project</td><td>{{project}}</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<h3>Файлы:</h3>
+<div class="slow_window">
+<table class="table table-hover" cellpadding="0" cellspacing="0">
+    <tbody ng-repeat="f in fileList">
+    <tr>
+        <td><a  href="{{f.url}}">{{f.name}}</a></td>
+        <a></a>
+    </tr>
+    </tbody>
+</table>
+</div>
+<!--
+<div class="wrapper"  ng-controller="saveFile">
+  <textarea
+          ng-model="vm.val.text"
+          name="textarea" rows="5" cols="20">
+      Hey ho let's go!
+  </textarea>
+    <a ng-app="myApp" href="" class="btn btn-dark btn-small" ng-click="vm.download(vm.val.text)">
+        Download
+    </a>
+</div>-->
+<button class="btn btn-dark" ng-click="edit()">Редактировать</button>
+</body>
+</html>

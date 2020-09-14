@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="projectsController">
+<head>
+    <title>Registration Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="logic.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div>
+    <h2>Список проектов:</h2>
+    <div id="lists">
+        <button class="btn btn-dark" ng-click="create()">Создать</button>
+        <table class="table table-hover" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>id</td>
+                <td>Название</td>
+            </tr>
+            <tbody ng-repeat="p in ProjectList">
+            <tr ng-click="select(p.id)">
+                <td>{{p.id}}</td>
+                <td>{{p.title}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
