@@ -72,7 +72,8 @@ create table tasks
     foreign key (leader_id) references users (id),
     foreign key (project_id) references projects (id),
     created_at timestamp default current_timestamp,
-    updated_at timestamp default current_timestamp
+    updated_at timestamp default current_timestamp,
+    is_archived BOOLEAN default 'f'
 
 );
 
@@ -113,27 +114,30 @@ VALUES ('Project 1', 1),
        ('Project 2', 2),
        ('Project 2', 2);
 
-INSERT INTO tasks (title, description, status, priority, leader_id, project_id, deadline)
-VALUES ('Task 1', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
-       ('Task 2', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
-       ('Task 3', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
-       ('Task 4', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
-       ('Task 5', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
-       ('Task 6', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
-       ('Task 7', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
-          ('Task 2', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
-       ('Task 3', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
-       ('Task 4', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
-       ('Task 5', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
-       ('Task 6', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
-       ('Task 7', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
-            ('Task 2', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
-       ('Task 3', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
-       ('Task 4', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
-       ('Task 5', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
-       ('Task 6', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
-       ('Task 7', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
-       ('Task 8', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07');
+INSERT INTO tasks (title, description, status, priority, leader_id, project_id, deadline, is_archived)
+VALUES ('Task 1', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07', true),
+--       ('Task 2', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+--       ('Task 3', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+--       ('Task 4', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+--       ('Task 5', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+--       ('Task 6', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+--       ('Task 7', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+--          ('Task 2', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+--       ('Task 3', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+--       ('Task 4', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+--       ('Task 5', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+--       ('Task 6', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+--       ('Task 7', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+--            ('Task 2', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+--       ('Task 3', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+--       ('Task 4', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
+--       ('Task 5', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+--       ('Task 6', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+--       ('Task 7', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+       ('Task 8', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07', true);
+
+       INSERT INTO tasks (title, description, status, priority, leader_id, project_id, deadline, is_archived)
+       VALUES ('task', 'werfewc', 'CREATED', 'PLANNING', 1, 1, '2020-09-07', false);
 
 DROP TABLE IF EXISTS files CASCADE;
 CREATE TABLE files (id varchar(255), name varchar(255) not null, task_id bigint, type varchar(255), data bigint,

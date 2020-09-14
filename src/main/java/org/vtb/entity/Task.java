@@ -65,4 +65,7 @@ public class Task {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @Column(name = "is_archived")
+    private Boolean isArchived;
 }
