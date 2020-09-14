@@ -282,14 +282,31 @@ app.controller('tasksController', function ($scope, $location, $window, $http) {
         $window.location.href = contextPath + '#!/task';
     }
 
-    fillTable = function () {
-        $http.get(contextPath + '/api/v1/tasks',
-           {
-             headers: {'Authorization': 'Bearer '+localStorage.getItem("token")}
-           })
-            .then(function (response) {
-                $scope.TaskList = response.data;
-            });
+    $scope.query = function(task_page) {
+        if(task_page < 0) return;
+        fillTable(task_page);
+    }
+
+     $scope.update = function() {
+        fillTable(1);
+     }
+
+    fillTable = function (task_page) {
+        if(task_page == null) task_page = 1;
+        var url = contextPath + '/api/v1/tasks'
+        url = url +'?page=' + task_page + '&is_archived=' + $scope.isArchived;
+        $http.get(url,
+                   {
+                     headers: {'Authorization': 'Bearer '+localStorage.getItem("token")}
+                   })
+                    .then(function (response) {
+                        if(angular.equals([], response.data)) {
+                            task_page = task_page-1;
+                            return;
+                        }
+                        $scope.TaskList = response.data;
+                        $scope.page = task_page;
+                    });
     };
     fillTable();
 });
@@ -353,6 +370,7 @@ $http.get(contextPath + '/api/v1/files',
 
 });
 
+var isArchived;
 var projectTask;
 app.controller('taskController', function ($scope, $location, $window, $http) {
 
@@ -458,7 +476,8 @@ fill_config = function() {
             'users': null,
             'comments': null,
             'createdAt': null,
-            'updatedAt': null
+            'updatedAt': null,
+            'isArchived': false
     }
 }
 

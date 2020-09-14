@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import org.vtb.entity.Task;
 import org.vtb.entity.dto.TaskDto;
 
+import java.util.List;
+
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long>, JpaSpecificationExecutor<Task> {
 
@@ -18,7 +20,7 @@ public interface TaskRepository extends JpaRepository<Task, Long>, JpaSpecificat
             "as pr on tk.project_id = pr.id left join task_manager.files as f on tk.id = f.task_id left join task_manager.users_tasks as ut \n" +
             "on ut.task_id = tk.id left join task_manager.users as au on ut.user_id = au.id  where tk.id = ?1",
             nativeQuery = true)
-    TaskDto findByIdDto(long id);
+    List<TaskDto> findByIdDto(long id);
 
 //    @Query("select t.id as id, t.title as title, t.leader.id as leaderId, t.leader.username as leaderUsername, " +
 //            "t.description as description, t.project.id as projectId, t.project.title as projectTitle, " +

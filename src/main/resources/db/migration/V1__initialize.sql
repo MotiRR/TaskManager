@@ -134,6 +134,10 @@ VALUES ('Task 1', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07', true
 --       ('Task 5', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
 --       ('Task 6', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
 --       ('Task 7', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
+       ('Task 3', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07', true),
+       ('Task 5', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07', true),
+       ('Task 6', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07', true),
+       ('Task 7', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07', true),
        ('Task 8', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07', true);
 
        INSERT INTO tasks (title, description, status, priority, leader_id, project_id, deadline, is_archived)

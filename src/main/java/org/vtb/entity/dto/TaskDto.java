@@ -28,6 +28,8 @@ public interface TaskDto {
 
     Long getFile();
 
+    Boolean getIsArchived();
+
     List<Long> getUsers();//Set<User> users;
 
     List<Long> getFiles(); //List<Integer> files;

@@ -15,6 +15,7 @@
     <h2>Список задач:</h2>
     <div id="lists">
         <button class="btn btn-dark" ng-click="create()">Создать</button>
+        <p><input type="checkbox" ng-model="isArchived" ng-click="update()">Архивированные</p>
         <table class="table table-hover" cellpadding="0" cellspacing="0">
             <tr>
                 <td>id</td>
@@ -27,6 +28,18 @@
             </tr>
             </tbody>
         </table>
+    </div>
+    <div>
+        <nav>
+            <ul class="pagination" style="float:left">
+                <li class="page-item"><a class="page-link"
+                                         ng-click="query(page-1)">prev</a>
+                </li>
+                <li class="page-item"><a class="page-link"
+                                         ng-click="query(page+1)">next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 </body>
