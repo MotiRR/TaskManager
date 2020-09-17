@@ -68,4 +68,7 @@ public class Task {
 
     @Column(name = "is_archived")
     private Boolean isArchived;
+
+    @Column(name = "is_visible")
+    private Boolean isVisible;
 }

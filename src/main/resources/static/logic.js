@@ -69,6 +69,8 @@ logService.getData($scope);
 
 app.controller('loginController', function ($scope, $location, $window, $http) {
 
+
+
     $scope.exit=function(){
         localStorage.clear();//setItem("token", '');
         $window.location.href = contextPath;
@@ -80,12 +82,18 @@ app.controller('loginController', function ($scope, $location, $window, $http) {
             if(response.data.status !== 200)
                 $scope.result = "Неправильный логин и/или пароль";
             else {
+
+
+
                 localStorage.setItem("token", response.data.token);
                 localStorage.setItem("user", $scope.authUser.login);
+                getStatus(); getPriority();
+
                 $window.location.href = contextPath + '#!/projects';
                 }
             });
     }
+
 });
 
 app.controller('registerController', function ($scope, $location, $window, $http) {
@@ -272,6 +280,25 @@ app.controller('projectInfoController', function ($scope, $location, $window, $h
 
 app.controller('tasksController', function ($scope, $location, $window, $http) {
 
+                    $http.get(contextPath + '/api/v1/storage/status',
+                       {
+                         headers: {'Authorization': 'Bearer '+localStorage.getItem("token")}
+                       })
+                        .then(function (response) {
+                            localStorage.setItem("status", angular.toJson(response.data));
+                        });
+
+
+
+                    $http.get(contextPath + '/api/v1/storage/priority',
+                       {
+                         headers: {'Authorization': 'Bearer '+localStorage.getItem("token")}
+                       })
+                        .then(function (response) {
+                            localStorage.setItem("priority", angular.toJson(response.data));
+                        });
+
+
     $scope.select=function(taskId){
         localStorage.setItem("taskId", taskId);
         $window.location.href = contextPath + '#!/task_info';
@@ -283,7 +310,7 @@ app.controller('tasksController', function ($scope, $location, $window, $http) {
     }
 
     $scope.query = function(task_page) {
-        if(task_page < 0) return;
+        if(task_page < 1) return;
         fillTable(task_page);
     }
 
@@ -294,7 +321,12 @@ app.controller('tasksController', function ($scope, $location, $window, $http) {
     fillTable = function (task_page) {
         if(task_page == null) task_page = 1;
         var url = contextPath + '/api/v1/tasks'
-        url = url +'?page=' + task_page + '&is_archived=' + $scope.isArchived;
+        alert($scope.isArchived)
+        url = url +'?page=' + task_page;
+        if($scope.isArchived)
+            url = url +'&is_archived=true';
+        else
+            url = url +'&is_archived=false';
         $http.get(url,
                    {
                      headers: {'Authorization': 'Bearer '+localStorage.getItem("token")}
@@ -321,6 +353,9 @@ app.controller('taskInfoController', function ($scope, $location, $window, $http
         $window.location.href = contextPath + '#!/task';
     };
 
+    $scope.subscribe = function() {
+
+    }
    /* var fileSaver = angular
       .module('fileSaver', ['ngFileSaver'])
 
@@ -377,6 +412,9 @@ app.controller('taskController', function ($scope, $location, $window, $http) {
     var taskId = localStorage.getItem("taskId");
     var is_edit_task = localStorage.getItem("is_edit_task");
 
+    $scope.priorityList = angular.fromJson(localStorage.getItem("priority"))
+    $scope.statusList = angular.fromJson(localStorage.getItem("status"))
+
      /*<tr><td>Id:</td><td>{{id}}</td></tr>
         <tr><td>Title:</td><td>{{title}}</td></tr>
         <tr><td>Description</td><td>{{description}}</td></tr>
@@ -419,8 +457,9 @@ app.controller('taskController', function ($scope, $location, $window, $http) {
                          alert(response.data.message);
                     else {
                          alert(response.data.message);
+
                          $window.location.href = contextPath + '#!/tasks';
-                     }
+                    }
                 });
         } else {
             var config_task = angular.fromJson(localStorage.getItem("edit_task"));

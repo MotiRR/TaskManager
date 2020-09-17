@@ -33,15 +33,23 @@
         </tr>
         <tr>
             <td>Priority</td>
-            <td><input type="text" ng-model="priority"></td>
+            <td><select>
+                <option ng-repeat="p in priorityList">{{p}}</option>
+            </select></td>
         </tr>
         <tr>
             <td>Status</td>
-            <td><input type="text" ng-model="status"></td>
+            <td><select>
+                <option ng-repeat="s in statusList">{{s}}</option>
+            </select></td>
         </tr>
         <tr>
             <td>isArchived</td>
             <td><input type="checkbox" ng-model="isArchived"></td>
+        </tr>
+        <tr>
+            <td>isVisible</td>
+            <td><input type="checkbox" ng-model="isVisible"></td>
         </tr>
         </tbody>
     </table>

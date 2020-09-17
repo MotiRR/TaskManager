@@ -14,17 +14,26 @@
 <div>
     <h2>Список задач:</h2>
     <div id="lists">
+        <div>
+            <p><input type="checkbox" ng-model="isArchived" ng-click="update()">Архивированные</p>
+            <p><input type="checkbox" ng-model="isVisible">Сгруппировать задачи по проекту</p>
+        </div>
         <button class="btn btn-dark" ng-click="create()">Создать</button>
-        <p><input type="checkbox" ng-model="isArchived" ng-click="update()">Архивированные</p>
         <table class="table table-hover" cellpadding="0" cellspacing="0">
             <tr>
                 <td>id</td>
                 <td>Название</td>
+                <td>Статус</td>
+                <td>Приоритет</td>
+                <td>Руководитель</td>
             </tr>
             <tbody ng-repeat="t in TaskList">
             <tr ng-click="select(t.id)">
                 <td>{{t.id}}</td>
                 <td>{{t.title}}</td>
+                <td>{{t.status}}</td>
+                <td>{{t.priority}}</td>
+                <td>{{t.leaderId}}</td>
             </tr>
             </tbody>
         </table>

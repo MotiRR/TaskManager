@@ -19,8 +19,11 @@ public class TaskFilter {
             spec = spec.and(TaskSpecifications.isArchivedEqual(Boolean.parseBoolean(params.getFirst("is_archived"))));
             System.out.println(params.getFirst("is_archived"));
         }
+        if (params.containsKey("is_visible")) {
+            spec = spec.and(TaskSpecifications.isArchivedEqual(Boolean.parseBoolean(params.getFirst("is_archived"))));
+            System.out.println(params.getFirst("is_visible"));
+        }
         if (params.containsKey("project")) {
-
             spec = spec.and(TaskSpecifications.projectEqual(Long.parseLong(params.getFirst("project"))));
         }
     }

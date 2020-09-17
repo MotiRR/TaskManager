@@ -73,7 +73,8 @@ create table tasks
     foreign key (project_id) references projects (id),
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp,
-    is_archived BOOLEAN default 'f'
+    is_archived BOOLEAN default 'f',
+    is_visible BOOLEAN default 'f'
 
 );
 
@@ -114,8 +115,8 @@ VALUES ('Project 1', 1),
        ('Project 2', 2),
        ('Project 2', 2);
 
-INSERT INTO tasks (title, description, status, priority, leader_id, project_id, deadline, is_archived)
-VALUES ('Task 1', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07', true),
+INSERT INTO tasks (title, description, status, priority, leader_id, project_id, deadline, is_archived, is_visible)
+VALUES ('Task 1', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07', true, true),
 --       ('Task 2', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
 --       ('Task 3', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
 --       ('Task 4', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07'),
@@ -134,17 +135,43 @@ VALUES ('Task 1', 'Description', 'CREATED', 'PLANNING', 1, 1, '2020-09-07', true
 --       ('Task 5', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
 --       ('Task 6', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
 --       ('Task 7', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07'),
-       ('Task 3', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07', true),
-       ('Task 5', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07', true),
-       ('Task 6', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07', true),
-       ('Task 7', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07', true),
-       ('Task 8', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07', true);
+       ('Task 3', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07', true, true),
+       ('Task 5', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07', true, true),
+       ('Task 6', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07', true, true),
+       ('Task 7', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07', true, true),
+       ('Task 8', 'Description', 'CREATED', 'PLANNING', 2, 2, '2020-09-07', true, true);
 
-       INSERT INTO tasks (title, description, status, priority, leader_id, project_id, deadline, is_archived)
-       VALUES ('task', 'werfewc', 'CREATED', 'PLANNING', 1, 1, '2020-09-07', false);
+       INSERT INTO tasks (title, description, status, priority, leader_id, project_id, deadline, is_archived, is_visible)
+       VALUES ('task', 'werfewc', 'CREATED', 'PLANNING', 1, 1, '2020-09-07', false, true);
 
 DROP TABLE IF EXISTS files CASCADE;
 CREATE TABLE files (id varchar(255), name varchar(255) not null, task_id bigint, type varchar(255), data bigint,
   primary key (id),
   foreign key (task_id) references tasks (id)
 );
+
+DROP TABLE IF EXISTS subscribe CASCADE;
+CREATE TABLE subscribe (id bigserial, user_id bigint, task_id bigint, is_subscribe BOOLEAN default 'f',
+  primary key (id),
+  foreign key (task_id) references tasks (id),
+  foreign key (user_id) references users (id)
+);
+
+INSERT INTO subscribe (user_id, task_id, is_subscribe)
+VALUES (1, 1, true),
+ (1, 1, true),
+ (1, 2, true);
+
+DROP TABLE IF EXISTS notification CASCADE;
+CREATE TABLE notification (id bigserial,
+    from_user bigint,
+    to_user bigint,
+    task_id bigint,
+    message varchar(255),
+    is_notification BOOLEAN default 'f',
+    primary key (id),
+    foreign key (from_user) references users (id),
+    foreign key (to_user) references users (id),
+    foreign key (task_id) references tasks (id)
+);
+
