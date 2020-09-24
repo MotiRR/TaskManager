@@ -24,10 +24,10 @@ public class SubscribeService {
     }
 
     public Subscribe findSubscribeByUserIdAndTaskId(Long userId, Long taskId) {
-        return subscribeRepository.findSubscribeByUserIdAndTaskId(userId, taskId);
+        return subscribeRepository.findBySubscriberAndTask(userId, taskId);
     }
 
     public boolean existsSubscribeByUserIdAndTaskId(Long userId, Long taskId) {
-        return subscribeRepository.existsSubscribeByUserIdAndTaskId(userId, taskId);
+        return subscribeRepository.existsBySubscriberAndTask(userId, taskId);
     }
 }

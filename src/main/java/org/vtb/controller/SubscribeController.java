@@ -3,24 +3,20 @@ package org.vtb.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import org.vtb.config.jwt.JwtProvider;
 import org.vtb.controller.classes.ResponseMessage;
 import org.vtb.entity.Subscribe;
-import org.vtb.entity.Task;
 import org.vtb.entity.User;
 import org.vtb.service.SubscribeService;
 import org.vtb.service.TaskService;
 import org.vtb.service.UserService;
 import org.vtb.utills.ParseHeader;
-import org.vtb.utills.TaskFilter;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api/v1/subscribe")
 public class SubscribeController {
 
     private ParseHeader parseHeader;
@@ -36,7 +32,7 @@ public class SubscribeController {
                                 @RequestParam(value = "taskId") Long taskId) {
         parseHeader.setHeaders(headers);
         User user = userService.findByLogin(parseHeader.getLogin());
-        if(user == null) return false;
+        if (user == null) return false;
         Subscribe subscribe = subscribeService.findSubscribeByUserIdAndTaskId(user.getId(), taskId);
         return subscribe.getIsSubscribe();
     }

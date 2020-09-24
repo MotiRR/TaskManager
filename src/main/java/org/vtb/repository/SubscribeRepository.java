@@ -6,6 +6,6 @@ import org.vtb.entity.Subscribe;
 
 @Repository
 public interface SubscribeRepository extends JpaRepository<Subscribe, Long> {
-    Subscribe findSubscribeByUserIdAndTaskId(Long user_id, Long task_id);
-    boolean existsSubscribeByUserIdAndTaskId(Long user_id, Long task_id);
+    Subscribe findBySubscriberAndTask(Long userId, Long taskId);
+    boolean existsBySubscriberAndTask(Long userId, Long taskId);
 }

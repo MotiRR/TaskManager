@@ -58,7 +58,7 @@ app.config(function ($routeProvider) {
 });
 
 
-app.controller('mainController', function ($scope, $location, $window, $http, logService) {
+app.controller('mainController', function ($scope, $location, $window, $http) {
 
 /*if(localStorage.getItem("login") == null) {
 logService.getData($scope);
